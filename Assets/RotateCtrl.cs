@@ -35,7 +35,7 @@ public class RotateCtrl : MonoBehaviour {
         if (device.GetPress(SteamVR_Controller.ButtonMask.Trigger))
         {
             //Debug.Log("トリガーを深く引いている");
-            if (manipulateObj != null)
+			if (manipulateObj != null && parentObj!=null)
             {
                 isManipulating = true;
                 //移動した分だけ回転させる
@@ -45,10 +45,12 @@ public class RotateCtrl : MonoBehaviour {
         }
         if (device.GetPressUp(SteamVR_Controller.ButtonMask.Trigger))
         {
-            manipulateObj.transform.parent = null;
-            var a = parentObj;
-            parentObj = null;
-            Destroy(a);
+			if (manipulateObj != null) {
+				manipulateObj.transform.parent = null;
+				var a = parentObj;
+				parentObj = null;
+				Destroy (a);
+			}
 
             isManipulating = false;
             manipulateObj = null;
